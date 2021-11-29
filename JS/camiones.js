@@ -1,6 +1,6 @@
-var Puntos = [[1, -6], [-15, 35], [90, 8]];
-var Centros = [[50, 25], [19, 36]];
-var Pedidos = [70, 558, 999];
+var Puntos = [[1, -6], [-15, 35], [90, 8], [7, 7], [11, -8]];
+var Centros = [[0, 1], [41, 36], [1, 8]];
+var Pedidos = [700, 550, 990, 740, 850];
 
 var Estacionamiento = [0, 0];
 
@@ -211,26 +211,34 @@ function main(Pedidos, NombrePuntos, Puntos) {
             Rutas.splice(r, 1, [tramo]);
             r++;
         } else {
+            console.log(Rutas[r]);
+            var fe = 0;
+            for (var e = 0; e < NombrePuntos1.length; e++) {
+                if (NombrePuntos1[e] == Rutas[r][0][2]) {
+                    fe = e;
+                }
+            }
+            var tramop = CaminosEP[fe];
+            Rutas[r][0].push(tramop);
             r++;
         }
     } while (r < Rutas.length);
     console.log(Rutas)
 
-    var esto = "E", aquello = 0, aqui = 0, k=0;
-    do{for(var bx=0;bx<NombreCentros.length;bx++){
-        if(NombreCentros[bx]==Rutas[k][0][0]){
-            aqui=bx;
+    var esto = "E", aquello = 0, aqui = 0, k = 0;
+    do {
+        for (var bx = 0; bx < NombreCentros.length; bx++) {
+            if (NombreCentros[bx] == Rutas[k][0][0]) {
+                aqui = bx;
+            }
         }
-    }
-    aquello=CaminosEC[aqui];
-    Rutas[k][0].splice(0,0,aquello);
-    Rutas[k][0].splice(0,0,esto);
-    k++
-    }while(k<Rutas.length);
-    
+        aquello = CaminosEC[aqui];
+        Rutas[k][0].splice(0, 0, aquello);
+        Rutas[k][0].splice(0, 0, esto);
+        k++
+    } while (k < Rutas.length);
 
-
-
+    console.log(Rutas);
 
 }
 
