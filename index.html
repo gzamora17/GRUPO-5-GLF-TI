@@ -6,26 +6,32 @@
         <title>Trabajo Integral</title>
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="icons/favicon.svg">
-        <!-- Fonts: 'Open Sans', 'Roboto Condensed' -->
+        <!-- Fonts: 'Roboto' 'Work Sans' 'JetBrains Mono'-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,800;1,300&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Roboto:wght@300;400;500;700&family=Work+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet"> 
         <!-- Imports -->
         <link rel="stylesheet" href="css/master.css">
+        <script defer src="JS/camiones.js"></script>
     </head>
     <body>
-        <div class="header">
-            <h2>Trabajo Integral - Generador de rutas</h2>
-            <!-- NOTE: Github link here -->
+        <div class="header-section">
+            <div class="header-wrap">
+                <!-- NOTE: Github link here -->
+                <div class="header-title">Trabajo Integral - Generador de rutas</div>
+                <p class="header-descripcion">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae esse dignissimos accusamus odit atque<br>ullam quae quas animi doloremque perspiciatis? Blanditiis accusantium officia quibusdam nulla facere animi consequuntur? Quisquam, dolorum.</p>
+            </div>
         </div>
-        <div class="upload-file-section">
-            <div class="title-wrap">
-                <div class="title">Sube las coordenadas</div>
-                <p class="title-descripcion">Necesario para calcular las rutas</p>
-                <p class="title-descripcion">Tiene que ser un texto plano txt</p>
+        <div class="dynamic-input-wrap">
+            <div class="input-descripcion">
+                <div class="descripcion-title">Ingreso de puntos</div>
+                <div class="descripcion">Para ingresar correctamente.. se aceptan valores como:..</div>
+                <div class="descripcion">El tamaño de campos depende directamente de la cantidad de puntos(?</div>
+                <div class="descripcion">Una vez terminado de rellenar los campos oprima enter y los datos se guardaran/acutalizaran</div>
             </div>
-            <div class="up-file">
-                <button type="button" name="button">Subir</button>
-            </div>
+            <div id="inputfield"></div>
+        </div>
+        <div class="resultado-op">
+            <div class="descripcion-title">Resultado de la operaci&oacuten</div>
         </div>
     </body>
 </html>
