@@ -2,11 +2,10 @@ var Puntos = [[1, -6], [-15, 35], [90, 8], [7, 7], [11, -8]];
 var Centros = [[0, 1], [41, 36], [1, 8]];
 var Pedidos = [700, 50, 990, 740, 850];
 
-// var TamPunt = Puntos.length;
-// console.log(TamPunt);
+var TamPunt = Puntos.length;
 
 // Crea los recuadros para ingresar puntos
-var InputFields = function() {
+var InputFields = function () {
     var div = document.createElement("div");
     document.getElementById('inputfield').appendChild(div);
     // Set div ID: Trans+#n
@@ -21,7 +20,7 @@ var InputFields = function() {
     // Set inputs: inicio
     var inicio = document.createElement("input")
     inicio.setAttribute("id", "inicio" + document.getElementById('inputfield').childElementCount);
-    inicio.setAttribute("type","text");
+    inicio.setAttribute("type", "text");
     inicio.setAttribute("placeholder", "Inicio");
     inicio.setAttribute("style", "width:120px;background:white; height:25px; border:none; border-bottom: 2px solid #00c896;");
 
@@ -29,7 +28,7 @@ var InputFields = function() {
     div.appendChild(textd);
     div.appendChild(inicio);
 };
-function dynamicInputs(){
+function dynamicInputs() {
     for (let index = 0; index < Puntos.length; index++) {
         InputFields();
     }
@@ -47,7 +46,6 @@ function op() {
     }
     return algo;
 }
-console.log(NombrePuntos);
 var NombreCentros = op2();
 function op2() {
     var algo = [];
@@ -57,11 +55,10 @@ function op2() {
     }
     return algo;
 }
-console.log(NombreCentros);
+
 
 function menorAmayor(Pedidos2, NombrePuntos2, Puntos2) {
     var i = 0, j = i + 1, puente1 = [], puente3 = [], puente2 = [], puente4 = [], puente5 = [], puente6 = [];
-    console.log(Pedidos2); console.log(NombrePuntos2); console.log(Puntos2);
     do {
         do {
             if (Pedidos2[i] > Pedidos2[j]) {
@@ -91,9 +88,6 @@ function menorAmayor(Pedidos2, NombrePuntos2, Puntos2) {
         i++;
         j = i + 1;
     } while (i < Pedidos2.length);
-    console.log(Pedidos2);
-    console.log(NombrePuntos2);
-    console.log(Puntos2);
 
     return [Pedidos2, NombrePuntos2, Puntos2];
 
@@ -107,7 +101,7 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
         var hip = parseFloat(Math.sqrt((Math.pow(Estacionamiento[1] - Puntos1[o][1], 2)) + (Math.pow(Estacionamiento[0] - Puntos1[o][0], 2))).toFixed(5));
         CaminosEP.push(hip);
     }
-    console.log(CaminosEP);
+    console.log("Recorridos desde los Puntos de Venta al Estacionamiento: " + CaminosEP);
     var CaminosPP = [], ingreso_1 = [], ñ = 0, j = 0;
     do {
         do {
@@ -126,7 +120,7 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
         var hip_2 = parseFloat(Math.sqrt((Math.pow(Estacionamiento[1] - Centros[o_1][1], 2)) + (Math.pow(Estacionamiento[0] - Centros[o_1][0], 2))).toFixed(5));
         CaminosEC.push(hip_2);
     }
-    console.log(CaminosEC);
+    console.log("Recorridos desde el Estacionamiento a los Centros de Distribución: " + CaminosEC);
 
     var CaminosPC = [], ingreso_2 = [], ñ_1 = 0, j_1 = 0;
     do {
@@ -140,13 +134,12 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
         CaminosPC.push(ingreso_2);
         ingreso_2 = [];
     } while (ñ_1 < Puntos1.length);
-    console.log(CaminosPC);
+    console.log("Recorridos desde los Centros de Distribución a los Puntos de Venta: " + CaminosPC);
 
     var suma = 0, ñ_8 = 0, guarda = [], Camiones = [];
 
     do {
         suma = suma + Pedidos1[ñ_8];
-        console.log(suma);
         guarda.push(NombrePuntos1[ñ_8]);
         if (suma >= 1000) {
             guarda.pop();
@@ -160,8 +153,6 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
             Camiones.push(guarda);
         }
     } while (ñ_8 < Pedidos1.length);
-    console.log(Camiones);
-    console.log(CaminosPC[1][0])
 
     var Rutas = [], datos = [], q = 0, m = 0, h = 0;
     do {
@@ -171,7 +162,6 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
                 elMenor.push(CaminosPC[h][w]);
                 do {
                     if (elMenor[0] > CaminosPC[h][w] && elMenor[0] != CaminosPC[h][w]) {
-                        console.log(CaminosPC[h][w])
                         elMenor.splice(0, 1, CaminosPC[h][w]);
                         lugar = w + 1;
                         w++;
@@ -201,13 +191,9 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
         m = 0;
     } while (q < Camiones.length);
 
-    console.log(Rutas);
-
     var r = 0;
-
     do {
         if (Rutas[r].length > 1) {
-            console.log(Rutas[r].length)
             var centrosA = [], caminosA = [], puntosA = [];
             for (var te = 0; te < Rutas[r].length; te++) {
                 centrosA.push(Rutas[r][te][0]);
@@ -275,7 +261,6 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
             Rutas.splice(r, 1, [tramo]);
             r++;
         } else {
-            console.log(Rutas[r]);
             var fe = 0;
             for (var e = 0; e < NombrePuntos1.length; e++) {
                 if (NombrePuntos1[e] == Rutas[r][0][2]) {
@@ -287,7 +272,6 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
             r++;
         }
     } while (r < Rutas.length);
-    console.log(Rutas)
 
     var esto = "E", aquello = 0, aqui = 0, k = 0;
     do {
@@ -304,17 +288,31 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
     } while (k < Rutas.length);
 
     var TamRutas = Rutas.length;
-    console.log(TamRutas);
+    console.log("Estas son las rutas de los " + TamRutas + " camiones: ");
     console.log(Rutas);
 
+    var RecorridoTotal = [], sumador = 0, bqp = 1, lwo = 0;
+    do {
+        do {
+            sumador = sumador + Rutas[lwo][0][bqp];
+            bqp = bqp + 2;
+        } while (bqp < Rutas[lwo][0].length);
+        RecorridoTotal.push(parseFloat(sumador).toFixed(5));
+        lwo++;
+        bqp = 1;
+        sumador = 0
+    } while (lwo < Rutas.length);
+    console.log("Este es el Recorrido total de los " + RecorridoTotal.length + " camiones: " + RecorridoTotal);
+
 }
+
 
 function printResultado() {
     var printInPage = document.getElementById('resultadoHTML');
     printInPage.innerHTML = '';
 
     var cantidadCamiones = document.createElement("p");
-    cantidadCamiones.setAttribute("style","color:var(--accent); font-size: 18px; padding-top: 20px;")
+    cantidadCamiones.setAttribute("style", "color:var(--accent); font-size: 18px; padding-top: 20px;")
     cantidadCamiones.innerHTML = "La cantidad de camiones necesarias para el día es: ";
 
     printInPage.appendChild(cantidadCamiones);
@@ -322,13 +320,13 @@ function printResultado() {
     for (let index = 0; index < 3; index++) {
         // Imprime el nombre del camion
         var nombreCamion = document.createElement("p");
-        nombreCamion.setAttribute("style","font-size: 14px; padding-top: 40px;")
+        nombreCamion.setAttribute("style", "font-size: 14px; padding-top: 40px;")
         nombreCamion.innerHTML = "Camion numero ..";
 
         // Imprime su informacion contenida en "informacionCamion"
         var informacionCamion = document.createElement("p");
         informacionCamion.setAttribute("style", "margin-left: 45px;")
-        
+
         var direccionCamion1 = document.createElement("p");
         direccionCamion1.innerHTML = "Sale del estacionamiento hacia -- ; Distancia: --";
         var direccionCamion2 = document.createElement("p");
@@ -337,7 +335,7 @@ function printResultado() {
         direccionCamion3.innerHTML = "Y luego se devolvio al estacionamiento ; Distancia: --";
         var direccionCamion4 = document.createElement("p");
         direccionCamion4.innerHTML = "La cantidad recorrida total es -- ; Distancia: --";
-        
+
         // Append Childs
         informacionCamion.appendChild(direccionCamion1);
         informacionCamion.appendChild(direccionCamion2);
