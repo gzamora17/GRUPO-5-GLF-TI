@@ -61,20 +61,20 @@ var InputFields = function () {
     document.getElementById('inputfield').appendChild(div);
     // Set div ID: Trans+#n
     div.setAttribute("id", "Conjunto_Pedidos" + document.getElementById('inputfield').childElementCount);
-    div.setAttribute("style", "padding-bottom:20px; display:flex; justify-content:space-around; align-items:center;");
+    div.setAttribute("style", "padding-bottom:25px; display:flex; justify-content:space-around; align-items:center;");
 
     // Set texto descripcion
     var textd = document.createElement("p");
     textd.setAttribute("style", "color:white;");
-    textd.textContent = "Ingrese el pedido del Punto de Venta "+contador_pedidos;
+    textd.textContent = "Punto de venta N"+contador_pedidos;
     contador_pedidos++;
 
     // Set inputs: inicio
     var pedidos_q = document.createElement("input")
     pedidos_q.setAttribute("id", "Npedidos" + document.getElementById('inputfield').childElementCount);
-    pedidos_q.setAttribute("type", "text");
-    pedidos_q.setAttribute("placeholder", "Cantidad de Pedidos");
-    pedidos_q.setAttribute("style", "width:120px;background:white; height:25px; border:none; border-bottom: 2px solid #00c896;");
+    pedidos_q.setAttribute("type", "number");
+    pedidos_q.setAttribute("placeholder", "Cantidad de pedidos");
+    pedidos_q.setAttribute("style", "width:170px; height:30px; text-align: center; background:white; color:var(--black-fg) ; padding:0px 15px; border:none; border-bottom: 3px solid #00c896;");
 
     // Append childs
     div.appendChild(textd);
@@ -89,7 +89,7 @@ dynamicInputs();
 
 function creaPedidos (){
     var pedido_listo =[];
-    for(i=1;i<=size;i++){
+    for(i=1;i<=Puntos.length;i++){
         var pedido_ingreso = document.getElementById("Npedido"+i).value;
         pedido_listo.push(pedido_ingreso);
     }
@@ -367,7 +367,6 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
     console.log("Este es el Recorrido total de los " + RecorridoTotal.length + " camiones: " + RecorridoTotal);
 
 }
-
 
 function printResultado() {
     var printInPage = document.getElementById('resultadoHTML');
