@@ -1,32 +1,84 @@
-var Puntos = [[1, -6], [-15, 35], [90, 8], [7, 7], [11, -8]];
-var Centros = [[0, 1], [41, 36], [1, 8]];
-var Pedidos = [700, 50, 990, 740, 850];
+async function guardardata() {
+    const response = await fetch('JS/texto.txt');
+    const data = await response.text();
+    const table = data.split('\n');
+    table.forEach(row => {
+        const column = row.split(';');
+        const type = column[0];
+        const num = column[1];
+        const dirc = column[2];
+        const dirc2 = dirc.split(',');
+        const x = dirc2[0];
+        const y = dirc2[1];
+        matrix.push([type, num, x, y]);
+    });
+}
 
-var TamPunt = Puntos.length;
+var matrix = [];
+/*guardardata();*/
 
+console.log("Aqui se recibió la información del archivo plano: " + matrix);
+
+function creaPuntos() {
+    var t_1 = 0, pasaPunto = [], ingresoPuntos = [];
+    do {
+        if (matrix[t_1][0] == "P") {
+            ingresoPuntos.push(matrix[t_1][2]);
+            ingresoPuntos.push(matrix[t_1][3]);
+            pasaPunto.push(ingresoPuntos);
+            ingresoPuntos = [];
+            t_1++;
+        } else {
+            t_1++;
+        }
+    } while (t_1 < matrix.length);
+    return pasaPunto;
+}
+
+function creaCentros() {
+    var t_2 = 0, pasaCentro = [], ingresoCentros = [];
+    do {
+        if (matrix[t_2][0] == "C") {
+            ingresoCentros.push(matrix[t_1][2]);
+            ingresoCentros.push(matrix[t_1][3]);
+            pasaCentro.push(ingresoPuntos);
+            ingresoCentros = [];
+            t_2++;
+        } else {
+            t_2++;
+        }
+    } while (t_2 < matrix.length);
+    return pasaCentro;
+}
+/*var Puntos = creaPuntos();
+var Centros = creaCentros();*/
+
+var Puntos =[[12,1],[86,2],[0,5]];
+var contador_pedidos = 1;
 // Crea los recuadros para ingresar puntos
 var InputFields = function () {
     var div = document.createElement("div");
     document.getElementById('inputfield').appendChild(div);
     // Set div ID: Trans+#n
-    div.setAttribute("id", "Trans" + document.getElementById('inputfield').childElementCount);
+    div.setAttribute("id", "Conjunto_Pedidos" + document.getElementById('inputfield').childElementCount);
     div.setAttribute("style", "padding-bottom:20px; display:flex; justify-content:space-around; align-items:center;");
 
     // Set texto descripcion
     var textd = document.createElement("p");
     textd.setAttribute("style", "color:white;");
-    textd.textContent = "ingrese punto";
+    textd.textContent = "Ingrese el pedido del Punto de Venta "+contador_pedidos;
+    contador_pedidos++;
 
     // Set inputs: inicio
-    var inicio = document.createElement("input")
-    inicio.setAttribute("id", "inicio" + document.getElementById('inputfield').childElementCount);
-    inicio.setAttribute("type", "text");
-    inicio.setAttribute("placeholder", "Inicio");
-    inicio.setAttribute("style", "width:120px;background:white; height:25px; border:none; border-bottom: 2px solid #00c896;");
+    var pedidos_q = document.createElement("input")
+    pedidos_q.setAttribute("id", "Npedidos" + document.getElementById('inputfield').childElementCount);
+    pedidos_q.setAttribute("type", "text");
+    pedidos_q.setAttribute("placeholder", "Cantidad de Pedidos");
+    pedidos_q.setAttribute("style", "width:120px;background:white; height:25px; border:none; border-bottom: 2px solid #00c896;");
 
     // Append childs
     div.appendChild(textd);
-    div.appendChild(inicio);
+    div.appendChild(pedidos_q);
 };
 function dynamicInputs() {
     for (let index = 0; index < Puntos.length; index++) {
@@ -34,6 +86,16 @@ function dynamicInputs() {
     }
 }
 dynamicInputs();
+
+function creaPedidos (){
+    var pedido_listo =[];
+    for(i=1;i<=size;i++){
+        var pedido_ingreso = document.getElementById("Npedido"+i).value;
+        pedido_listo.push(pedido_ingreso);
+    }
+    return pedido_listo;
+}
+var Pedidos = creaPedidos ();
 
 var Estacionamiento = [0, 0];
 
