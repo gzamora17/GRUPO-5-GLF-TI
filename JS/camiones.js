@@ -60,20 +60,20 @@ var InputFields = function () {
     document.getElementById('inputfield').appendChild(div);
     // Set div ID: Conjunto_Pedidos
     div.setAttribute("id", "Conjunto_Pedidos" + document.getElementById('inputfield').childElementCount);
-    div.setAttribute("style", "padding-bottom:20px; display:flex; justify-content:space-around; align-items:center;");
+    div.setAttribute("style", "padding-bottom:25px; display:flex; justify-content:space-around; align-items:center;");
 
     // Set texto descripcion
     var textd = document.createElement("p");
     textd.setAttribute("style", "color:white;");
-    textd.textContent = "Ingrese el pedido del Punto de Venta " + contador_pedidos;
+    textd.textContent = "Punto de venta N" + contador_pedidos;
     contador_pedidos++;
 
     // Set inputs: pedidos_q
     var pedidos_q = document.createElement("input")
     pedidos_q.setAttribute("id", "Npedidos" + document.getElementById('inputfield').childElementCount);
-    pedidos_q.setAttribute("type", "text");
-    pedidos_q.setAttribute("placeholder", "Cantidad de Pedidos");
-    pedidos_q.setAttribute("style", "width:120px;background:white; height:25px; border:none; border-bottom: 2px solid #00c896;");
+    pedidos_q.setAttribute("type", "number");
+    pedidos_q.setAttribute("placeholder", "Cantidad de pedidos");
+    pedidos_q.setAttribute("style", "width:170px; height:30px; text-align: center; background:white; color:var(--black-fg) ; padding:0px 15px; border:none; border-bottom: 3px solid #00c896;");
 
     // Append childs
     div.appendChild(textd);
@@ -88,13 +88,18 @@ dynamicInputs();
 
 function creaPedidos() {
     var pedido_listo = [];
-    for (i = 1; i <= size; i++) {
+    for (i = 1; i <= Puntos.length; i++) {
         var pedido_ingreso = document.getElementById("Npedido" + i).value;
-        pedido_listo.push(pedido_ingreso);
+        if (pedido_ingreso > 1000) {
+            alert("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000.");
+            console.error("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000.");
+            return 0;
+        } else {
+            pedido_listo.push(pedido_ingreso);
+        }
     }
     return pedido_listo;
 }
-var Pedidos = creaPedidos();
 
 var Estacionamiento = [0, 0];
 
@@ -373,16 +378,21 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
         } else {
             var resta = Rutas[cuenta][0].length - 7;
             var cabe_2 = resta / 2;
-            Tamano_Rutas.push(cabe_2);
+            Tamano_Rutas.push(cabe_2+1);
             cuenta++;
         }
     } while (cuenta < Rutas.length);
 
+    console.log(Rutas);
+    console.log(RecorridoTotal);
+    console.log(Tamano_Rutas);
+    
     return [Rutas, RecorridoTotal, Tamano_Rutas];
 }
 
 var pasa_camiones = 0;
 function printResultado() {
+    var Pedidos = creaPedidos();
     var [Rutas_Resultado, Recorrido_Resultado, Tamano_Resultado] = main(Pedidos, NombrePuntos, Puntos);
     var printInPage = document.getElementById('resultadoHTML');
     printInPage.innerHTML = '';
@@ -405,13 +415,13 @@ function printResultado() {
             informacionCamion.setAttribute("style", "margin-left: 45px;")
 
             var direccionCamion1 = document.createElement("p");
-            direccionCamion1.innerHTML = "Sale del estacionamiento hacia" + Rutas_Resultado[index][0][2] + " (Distancia: " + Rutas_Resultado[index][0][1] + ").";
+            direccionCamion1.innerHTML = "Sale del estacionamiento hacia " + Rutas_Resultado[index][0][2] + " (Distancia: " + Rutas_Resultado[index][0][1] + " kms.).";
             var direccionCamion2 = document.createElement("p");
-            direccionCamion2.innerHTML = "Luego fue a " + Rutas_Resultado[index][0][4] + " (Distancia: " + Rutas_Resultado[index][0][3];
+            direccionCamion2.innerHTML = "Luego se dirige a " + Rutas_Resultado[index][0][4] + " (Distancia: " + Rutas_Resultado[index][0][3]+" kms.).";
             var direccionCamion3 = document.createElement("p");
-            direccionCamion3.innerHTML = "Y luego se devolvio al estacionamiento (Distancia: " + Rutas_Resultado[index][0][5];
+            direccionCamion3.innerHTML = "Y finalmente se devuelve al estacionamiento (Distancia: " + Rutas_Resultado[index][0][5]+" kms.).";
             var direccionCamion4 = document.createElement("p");
-            direccionCamion4.innerHTML = "La cantidad recorrida total es " + Recorrido_Resultado[index] + ".";
+            direccionCamion4.innerHTML = "La cantidad recorrida total es " + Recorrido_Resultado[index] + " kms.";
             // Append Childs
             informacionCamion.appendChild(direccionCamion1);
             informacionCamion.appendChild(direccionCamion2);
@@ -420,7 +430,7 @@ function printResultado() {
             printInPage.appendChild(nombreCamion);
             printInPage.appendChild(informacionCamion);
         } else {
-            if (Tamano_Resultado[index] == 1) {
+            if (Tamano_Resultado[index] > 1) {
                 var nombreCamion = document.createElement("p");
                 nombreCamion.setAttribute("style", "font-size: 14px; padding-top: 40px;")
                 nombreCamion.innerHTML = "Camion numero " + (index + 1);
@@ -430,22 +440,26 @@ function printResultado() {
                 informacionCamion.setAttribute("style", "margin-left: 45px;")
 
                 var direccionCamion1 = document.createElement("p");
-                direccionCamion1.innerHTML = "Sale del estacionamiento hacia" + Rutas_Resultado[index][0][2] + " (Distancia: " + Rutas_Resultado[index][0][1] + ").";
+                direccionCamion1.innerHTML = "Sale del estacionamiento hacia " + Rutas_Resultado[index][0][2] + " (Distancia: " + Rutas_Resultado[index][0][1] + " kms.).";
                 var direccionCamion2 = document.createElement("p");
-                direccionCamion2.innerHTML = function () {
-                    var palabra = "Luego fue a ";
-                    for (var paseando = 6; paseando < Tamano_Resultado[index]; paseando + 2) {
-                        palabra = palabra + Rutas_Resultado[index][0][paseando] + " (Distancia: " + Rutas_Resultado[index][0][paseando - 1] + "), "
-                    }
-                    var palabra_2 = palabra.slice(0, palabra.length - 2);
+                var ruta_puntos = crea_palabra(); 
+                function crea_palabra() {
+                    var palabra = "Luego se dirige a ";
+                    var paseando=4;
+                    do{
+                        palabra = palabra + Rutas_Resultado[index][0][paseando] + " (Distancia: " + Rutas_Resultado[index][0][paseando - 1] + " kms.), luego hacia ";
+                        paseando=paseando+2;
+                    }while(paseando<Rutas_Resultado[index][0].length-2);
+                    var palabra_2 = palabra.slice(0, palabra.length - 14);
                     palabra_2 = palabra_2 + "."
                     return palabra_2;
                 }
-                var distancia_estacionamiento = Rutas_Resultado[index][0].length-2;
+                direccionCamion2.innerHTML = ruta_puntos;
+                var distancia_estacionamiento = Rutas_Resultado[index][0].length - 2;
                 var direccionCamion3 = document.createElement("p");
-                direccionCamion3.innerHTML = "Y luego se devolvio al estacionamiento (Distancia: " + Rutas_Resultado[index][0][distancia_estacionamiento];
+                direccionCamion3.innerHTML = "Y por ultimo se devuelve al estacionamiento (Distancia: " + Rutas_Resultado[index][0][distancia_estacionamiento]+" kms.).";
                 var direccionCamion4 = document.createElement("p");
-                direccionCamion4.innerHTML = "La cantidad recorrida total es " + Recorrido_Resultado[index] + ".";
+                direccionCamion4.innerHTML = "La cantidad recorrida total es " + Recorrido_Resultado[index] + " kms.";
                 // Append Childs
                 informacionCamion.appendChild(direccionCamion1);
                 informacionCamion.appendChild(direccionCamion2);
