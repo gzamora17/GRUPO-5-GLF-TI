@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Trabajo Integral</title>
         <!-- Favicon -->
-        <link rel="icon" type="image/png" href="../../../Desktop/trabajo-integral-glf-747c3d6651df2fb85cf1e0e06512dd3d1430d47b/icons/favicon.svg">
+        <link rel="icon" type="image/png" href="icons/favicon.svg">
         <!-- Fonts: 'Roboto' 'Work Sans' 'JetBrains Mono'-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Roboto:wght@300;400;500;700&family=Work+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet"> 
         <!-- Imports -->
-        <link rel="stylesheet" href="../../../Desktop/trabajo-integral-glf-747c3d6651df2fb85cf1e0e06512dd3d1430d47b/css/master.css">
+        <link rel="stylesheet" href="css/master.css">
         <script defer src="js/camiones.js"></script>
     </head>
     <body>
@@ -27,20 +27,30 @@
             </div>
         </div>
         <!-- ESPACIO PARA SUBIR EL ARCHIVO -->
-        <div class="subir-archivo">
+        <div class="subir-archivo-section">
             <div class="descripcion-title">Seleccione el archivo de texto plano</div>
-            <input type="file" id="archivoTexto">
-	    <p id="mensajes"></p><br>
-            <textarea id="contenido" cols="30" rows="10"></textarea>
+            <div class="archivo-wrap">
+                <div class="subir-archivo">
+	                <p id="mensajes"></p><br>
+                    <textarea id="contenido" cols="30" rows="10"></textarea>
+                </div>
+                <div class="subir-archivo-descripcion">
+                    <p>Suba el archivo de texto plano aqu&iacute.</p><br>
+                    <input type="file" id="archivoTexto"><br><br>
+                    <p>Este cuadro de texto es solo referencial, servir&aacute para corroborar que la informaci&oacuten ingresada sea efectivamente la que usted ingres&oacute.</p>
+                    <p></p>
+                </div>
+            </div>
         </div>
         <!-- INGRESAR LOS PEDIDOS -->
         <div class="dynamic-input-wrap">
             <div class="input-descripcion">
                 <div class="descripcion-title">Ingreso de Pedidos</div>
                 <p class="descripcion">Para hacer uso correcto de la p&aacutegina, debe ingresar los pedidos de cada uno de los Puntos de Venta en los recuadros disponibles a la derecha.</p>
+                <p class="descripcion">El formato que usa la p&aacutegina reconoce a los puntos de venta como "P" y a los centros de distribuci&oacuten como "C".</p>
                 <p class="descripcion">La cantidad de campos a rellenar depende directamente del archivo de coordenadas que use. Concretamente de la cantidad de puntos que existan en el archivo.</p>
                 <p class="descripcion">El n&uacutemero ingresado de pedido debe ser un n&uacutemero entero mayor que 0 y menor que 1000 puesto que no puede superar las 1000 unidades por Punto de Venta.</p>
-		        <p class="descripcion">Una vez terminado de rellenar los campos oprima el bot&oacuten de "finalizar" y los datos se actualizar&aacuten autom&aacuteticamente.</p>
+		        <p class="descripcion">Una vez terminado de rellenar los campos oprima el bot&oacuten de "Finalizar" y los datos se actualizar&aacuten autom&aacuteticamente.</p>
             </div>
             <div class="relleno-datos">
                 <div class="inputs-wrap">
@@ -57,14 +67,15 @@
         </div>
         <!-- MUESTRA EL RESULTADO EN TEXTO -->
         <div class="resultado-op">
-            <div class="descripcion-title">Resultado de la operaci&oacuten</div>
+            <div id="resultado-camion"></div>
             <div id="resultadoHTML"></div>
         </div>
         <div class="footer">
             <a class="link-github" href="https://github.com/yowls/trabajo-integral-glf">
-                <img class="link-github-icon" src="../../../Desktop/trabajo-integral-glf-747c3d6651df2fb85cf1e0e06512dd3d1430d47b/icons/github.svg" alt="Github logo icon">
-                <span class="link-github-text">GitHub</span>
+                <img class="link-github-icon" src="icons/github.svg" alt="Github logo icon">
+                <span class="link-text">GitHub</span>
             </a>
+            <div id="reload-page"></div>
         </div>
     </body>
 </html>
