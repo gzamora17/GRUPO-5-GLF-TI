@@ -97,9 +97,16 @@ p {
     }
 }
 
-.subir-archivo {
+/* SUBIR EL ARCHIVO */
+.subir-archivo-section {
     margin-top: 50px;
     text-align: center;
+}
+.archivo-wrap {
+    display: flex;
+    width: 50%;
+    transform: translate(50%,0%);
+    align-items: center;
 }
 
 /* INPUT SECTION  */
@@ -220,7 +227,7 @@ p {
     text-align: center;
     align-items: center;
 }
-.link-github-text {
+.link-text {
     color: var(--accent);
     margin-left: 10px;
     font-family: "Roboto", sans-serif;
@@ -230,4 +237,20 @@ p {
 .link-github-icon {
     height: 30px;
     width: 30px;
+}
+.boton-reload {
+    position: absolute;
+    background-color: white;
+    border: none;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    top: 60%;
+    left: 83%;
+    width: 120px;
+    height: 50px;
+}
+.boton-reload img {
+    width: 30px;
+    height: 30px;
 }
