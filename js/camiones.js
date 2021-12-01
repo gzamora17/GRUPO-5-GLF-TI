@@ -578,10 +578,10 @@ function printResultado() {
                 var direccionCamion4_2 = document.createElement("p");
                 direccionCamion4_2.innerHTML = "La cantidad recorrida total es " + Recorrido_Resultado[index] + " kms.";
                 // Append Childs
-                informacionCamion.appendChild(direccionCamion1_2);
-                informacionCamion.appendChild(direccionCamion2_2);
-                informacionCamion.appendChild(direccionCamion3_2);
-                informacionCamion.appendChild(direccionCamion4_2);
+                informacionCamion_2.appendChild(direccionCamion1_2);
+                informacionCamion_2.appendChild(direccionCamion2_2);
+                informacionCamion_2.appendChild(direccionCamion3_2);
+                informacionCamion_2.appendChild(direccionCamion4_2);
                 printInPage.appendChild(nombreCamion_2);
                 printInPage.appendChild(informacionCamion_2);
             }
