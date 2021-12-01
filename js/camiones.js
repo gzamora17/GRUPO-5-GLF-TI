@@ -1,176 +1,177 @@
 function abrirArchivo(evento) {
-            let archivo = evento.target.files[0];
+    let archivo = evento.target.files[0];
 
-            if (archivo) {
-                let reader = new FileReader();
+    if (archivo) {
+        let reader = new FileReader();
 
-                reader.onload = function (e) {
-                    let contenido = e.target.result;
-                    const lines = contenido.split(/\r\n|\n/);
-                    document.getElementById('contenido').value = lines.join('\n');
-                    var contenido_x = contenido;
-                    separa_Datos(contenido_x);
-                    dynamicInputs();
-                };
+        reader.onload = function (e) {
+            let contenido = e.target.result;
+            const lines = contenido.split(/\r\n|\n/);
+            document.getElementById('contenido').value = lines.join('\n');
+            // var contenido_x = contenido;
+            // separa_Datos(contenido_x);
+            [Puntos, Centros]=separa_Datos(contenido);
+            for (let index = 0; index < Puntos.length; index++) {
+                InputFields();
+            }
+        };
 
-                reader.readAsText(archivo);
-            } else {
-                document.getElementById('mensajes').innerText = 'No se ha seleccionado un archivo.';
+        reader.readAsText(archivo);
+    } else {
+        document.getElementById('mensajes').innerText = 'No se ha seleccionado un archivo.';
+    }
+}
+window.addEventListener('load', () => {
+        document.getElementById('archivoTexto').addEventListener('change', abrirArchivo);
+});
+
+function separa_Datos(contenido_y) {
+    var contenido_real = contenido_y;
+    var dato_operado = contenido_real.split(""), kcm = 0;
+    for (var t_p = 0; t_p < dato_operado.length; t_p++) {
+        if (dato_operado[t_p] == "C") {
+            kcm = t_p;
+            t_p = dato_operado.length + 1;
+        }
+    }
+    var punto_operado = dato_operado.slice(0, kcm - 1);
+    var centro_operado = dato_operado.slice(kcm, dato_operado.length);
+    var centros_pasantia = [], puntos_pasantia = [];
+    var pivote_punto = 0, pivote_centro = 0;
+
+    for (var aw = 1; aw < punto_operado.length; aw++) {
+        if (punto_operado[aw] == "P") {
+            pivote_punto = aw;
+            var dal = punto_operado.slice(0, pivote_punto - 1);
+            puntos_pasantia.push(dal);
+            punto_operado.splice(0, pivote_punto);
+            aw = 1;
+        }
+    }
+    puntos_pasantia.push(punto_operado);
+
+    for (var iw = 1; iw < centro_operado.length; iw++) {
+        if (centro_operado[iw] == "C") {
+            pivote_centro = iw;
+            var dal_1 = centro_operado.slice(0, pivote_centro - 1);
+            centros_pasantia.push(dal_1);
+            centro_operado.splice(0, pivote_centro);
+            iw = 1;
+        }
+    }
+    centros_pasantia.push(centro_operado);
+    var puntos_el_final = [], centro_el_final = [], ñm = 0;
+    do {
+        var coorde = puntos_pasantia[ñm].slice(4, puntos_pasantia[ñm].length);
+        var mete_punto = [];
+        for (var plñ = 0; plñ < coorde.length; plñ++) {
+            var teo = 0;
+            if (coorde[plñ] == ",") {
+                var pto = coorde.slice(0, plñ);
+                if (pto[0] == "-") {
+                    var palab = "l"
+                    for (var lqz = 1; lqz < pto.length; lqz++) {
+                        palab = palab + pto[lqz];
+                    }
+                    var palab_2 = palab.slice(1, palab.length);
+                    palab_2 = parseInt(palab_2);
+                    palab_2 = palab_2 * -1;
+                    mete_punto.push(palab_2);
+                } else {
+                    var palab_1 = "l"
+                    for (var lqz_1 = 0; lqz_1 < pto.length; lqz_1++) {
+                        palab_1 = palab_1 + pto[lqz_1];
+                    }
+                    var palab_2_1 = palab_1.slice(1, palab_1.length);
+                    palab_2_1 = parseInt(palab_2_1);
+                    mete_punto.push(palab_2_1);
+                }
+                var ptp = coorde.slice(plñ + 1, coorde.length);
+                if (ptp[0] == "-") {
+                    var palab_3 = "l"
+                    for (var lqz_3 = 1; lqz_3 < ptp.length; lqz_3++) {
+                        palab_3 = palab_3 + ptp[lqz_3];
+                    }
+                    var palab_2_3 = palab_3.slice(1, palab_3.length);
+                    palab_2_3 = parseInt(palab_2_3);
+                    palab_2_3 = palab_2_3 * -1;
+                    mete_punto.push(palab_2_3);
+                } else {
+                    var palab_1_3 = "l"
+                    for (var lqz_1_3 = 0; lqz_1_3 < ptp.length; lqz_1_3++) {
+                        palab_1_3 = palab_1_3 + ptp[lqz_1_3];
+                    }
+                    var palab_2_1_3 = palab_1_3.slice(1, palab_1_3.length);
+                    palab_2_1_3 = parseInt(palab_2_1_3);
+                    mete_punto.push(palab_2_1_3);
+                }
             }
         }
+        puntos_el_final.push(mete_punto);
+        mete_punto = [];
+        ñm++;
+    } while (ñm < puntos_pasantia.length);
 
-        window.addEventListener('load', () => {
-            document.getElementById('archivoTexto').addEventListener('change', abrirArchivo);
-
-        });
-
-        function separa_Datos(contenido_y) {
-            var contenido_real = contenido_y;
-            var dato_operado = contenido_real.split(""), kcm = 0;
-            for (var t_p = 0; t_p < dato_operado.length; t_p++) {
-                if (dato_operado[t_p] == "C") {
-                    kcm = t_p;
-                    t_p = dato_operado.length + 1;
-                }
-            }
-            var punto_operado = dato_operado.slice(0, kcm - 1);
-            var centro_operado = dato_operado.slice(kcm, dato_operado.length);
-            var centros_pasantia = [], puntos_pasantia = [];
-            var pivote_punto = 0, pivote_centro = 0;
-
-            for (var aw = 1; aw < punto_operado.length; aw++) {
-                if (punto_operado[aw] == "P") {
-                    pivote_punto = aw;
-                    var dal = punto_operado.slice(0, pivote_punto - 1);
-                    puntos_pasantia.push(dal);
-                    punto_operado.splice(0, pivote_punto);
-                    aw = 1;
-                }
-            }
-            puntos_pasantia.push(punto_operado);
-
-            for (var iw = 1; iw < centro_operado.length; iw++) {
-                if (centro_operado[iw] == "C") {
-                    pivote_centro = iw;
-                    var dal_1 = centro_operado.slice(0, pivote_centro - 1);
-                    centros_pasantia.push(dal_1);
-                    centro_operado.splice(0, pivote_centro);
-                    iw = 1;
-                }
-            }
-            centros_pasantia.push(centro_operado);
-            var puntos_el_final = [], centro_el_final = [], ñm = 0;
-            do {
-                var coorde = puntos_pasantia[ñm].slice(4, puntos_pasantia[ñm].length);
-                var mete_punto = [];
-                for (var plñ = 0; plñ < coorde.length; plñ++) {
-                    var teo = 0;
-                    if (coorde[plñ] == ",") {
-                        var pto = coorde.slice(0, plñ);
-                        if (pto[0] == "-") {
-                            var palab = "l"
-                            for (var lqz = 1; lqz < pto.length; lqz++) {
-                                palab = palab + pto[lqz];
-                            }
-                            var palab_2 = palab.slice(1, palab.length);
-                            palab_2 = parseInt(palab_2);
-                            palab_2 = palab_2 * -1;
-                            mete_punto.push(palab_2);
-                        } else {
-                            var palab_1 = "l"
-                            for (var lqz_1 = 0; lqz_1 < pto.length; lqz_1++) {
-                                palab_1 = palab_1 + pto[lqz_1];
-                            }
-                            var palab_2_1 = palab_1.slice(1, palab_1.length);
-                            palab_2_1 = parseInt(palab_2_1);
-                            mete_punto.push(palab_2_1);
-                        }
-                        var ptp = coorde.slice(plñ + 1, coorde.length);
-                        if (ptp[0] == "-") {
-                            var palab_3 = "l"
-                            for (var lqz_3 = 1; lqz_3 < ptp.length; lqz_3++) {
-                                palab_3 = palab_3 + ptp[lqz_3];
-                            }
-                            var palab_2_3 = palab_3.slice(1, palab_3.length);
-                            palab_2_3 = parseInt(palab_2_3);
-                            palab_2_3 = palab_2_3 * -1;
-                            mete_punto.push(palab_2_3);
-                        } else {
-                            var palab_1_3 = "l"
-                            for (var lqz_1_3 = 0; lqz_1_3 < ptp.length; lqz_1_3++) {
-                                palab_1_3 = palab_1_3 + ptp[lqz_1_3];
-                            }
-                            var palab_2_1_3 = palab_1_3.slice(1, palab_1_3.length);
-                            palab_2_1_3 = parseInt(palab_2_1_3);
-                            mete_punto.push(palab_2_1_3);
-                        }
+    var ñm_8 =0;
+    do {
+        var coorde_8 = centros_pasantia[ñm_8].slice(4, centros_pasantia[ñm_8].length);
+        var mete_punto_8 = [];
+        for (var plñ_8 = 0; plñ_8 < coorde_8.length; plñ_8++) {
+            var teo_8 = 0;
+            if (coorde_8[plñ_8] == ",") {
+                var pto_8 = coorde_8.slice(0, plñ_8);
+                if (pto_8[0] == "-") {
+                    var palab_8 = "l"
+                    for (var lqz_8 = 1; lqz_8 < pto_8.length; lqz_8++) {
+                        palab_8 = palab_8 + pto_8[lqz_8];
                     }
-                }
-                puntos_el_final.push(mete_punto);
-                mete_punto = [];
-                ñm++;
-            } while (ñm < puntos_pasantia.length);
-
-            var ñm_8 =0;
-            do {
-                var coorde_8 = centros_pasantia[ñm_8].slice(4, centros_pasantia[ñm_8].length);
-                var mete_punto_8 = [];
-                for (var plñ_8 = 0; plñ_8 < coorde_8.length; plñ_8++) {
-                    var teo_8 = 0;
-                    if (coorde_8[plñ_8] == ",") {
-                        var pto_8 = coorde_8.slice(0, plñ_8);
-                        if (pto_8[0] == "-") {
-                            var palab_8 = "l"
-                            for (var lqz_8 = 1; lqz_8 < pto_8.length; lqz_8++) {
-                                palab_8 = palab_8 + pto_8[lqz_8];
-                            }
-                            var palab_2_8 = palab_8.slice(1, palab_8.length);
-                            palab_2_8 = parseInt(palab_2_8);
-                            palab_2_8 = palab_2_8 * -1;
-                            mete_punto_8.push(palab_2_8);
-                        } else {
-                            var palab_1_8 = "l"
-                            for (var lqz_1_8 = 0; lqz_1_8 < pto_8.length; lqz_1_8++) {
-                                palab_1_8 = palab_1_8 + pto_8[lqz_1_8];
-                            }
-                            var palab_2_1_8 = palab_1_8.slice(1, palab_1_8.length);
-                            palab_2_1_8 = parseInt(palab_2_1_8);
-                            mete_punto_8.push(palab_2_1_8);
-                        }
-                        var ptp_8 = coorde_8.slice(plñ_8 + 1, coorde_8.length);
-                        if (ptp_8[0] == "-") {
-                            var palab_3_8 = "l"
-                            for (var lqz_3_8 = 1; lqz_3_8 < ptp_8.length; lqz_3_8++) {
-                                palab_3_8 = palab_3_8 + ptp_8[lqz_3_8];
-                            }
-                            var palab_2_3_8 = palab_3_8.slice(1, palab_3_8.length);
-                            palab_2_3_8 = parseInt(palab_2_3_8);
-                            palab_2_3_8 = palab_2_3_8 * -1;
-                            mete_punto.push(palab_2_3_8);
-                        } else {
-                            var palab_1_3_8 = "l"
-                            for (var lqz_1_3_8 = 0; lqz_1_3_8 < ptp_8.length; lqz_1_3_8++) {
-                                palab_1_3_8 = palab_1_3_8 + ptp_8[lqz_1_3_8];
-                            }
-                            var palab_2_1_3_8 = palab_1_3_8.slice(1, palab_1_3_8.length);
-                            palab_2_1_3_8 = parseInt(palab_2_1_3_8);
-                            mete_punto_8.push(palab_2_1_3_8);
-                        }
+                    var palab_2_8 = palab_8.slice(1, palab_8.length);
+                    palab_2_8 = parseInt(palab_2_8);
+                    palab_2_8 = palab_2_8 * -1;
+                    mete_punto_8.push(palab_2_8);
+                } else {
+                    var palab_1_8 = "l"
+                    for (var lqz_1_8 = 0; lqz_1_8 < pto_8.length; lqz_1_8++) {
+                        palab_1_8 = palab_1_8 + pto_8[lqz_1_8];
                     }
+                    var palab_2_1_8 = palab_1_8.slice(1, palab_1_8.length);
+                    palab_2_1_8 = parseInt(palab_2_1_8);
+                    mete_punto_8.push(palab_2_1_8);
                 }
-                centro_el_final.push(mete_punto_8);
-                mete_punto_8 = [];
-                ñm_8++;
-            } while (ñm_8 < centros_pasantia.length);
-
-            return [puntos_el_final, centro_el_final];
-
+                var ptp_8 = coorde_8.slice(plñ_8 + 1, coorde_8.length);
+                if (ptp_8[0] == "-") {
+                    var palab_3_8 = "l"
+                    for (var lqz_3_8 = 1; lqz_3_8 < ptp_8.length; lqz_3_8++) {
+                        palab_3_8 = palab_3_8 + ptp_8[lqz_3_8];
+                    }
+                    var palab_2_3_8 = palab_3_8.slice(1, palab_3_8.length);
+                    palab_2_3_8 = parseInt(palab_2_3_8);
+                    palab_2_3_8 = palab_2_3_8 * -1;
+                    mete_punto.push(palab_2_3_8);
+                } else {
+                    var palab_1_3_8 = "l"
+                    for (var lqz_1_3_8 = 0; lqz_1_3_8 < ptp_8.length; lqz_1_3_8++) {
+                        palab_1_3_8 = palab_1_3_8 + ptp_8[lqz_1_3_8];
+                    }
+                    var palab_2_1_3_8 = palab_1_3_8.slice(1, palab_1_3_8.length);
+                    palab_2_1_3_8 = parseInt(palab_2_1_3_8);
+                    mete_punto_8.push(palab_2_1_3_8);
+                }
+            }
         }
+        centro_el_final.push(mete_punto_8);
+        mete_punto_8 = [];
+        ñm_8++;
+    } while (ñm_8 < centros_pasantia.length);
 
-        var [Puntos, Centros]=separa_Datos(contenido);
+    return [puntos_el_final, centro_el_final];
+}
 
-var contador_pedidos = 1;
+// var [Puntos, Centros]=separa_Datos(contenido);
+var Puntos= [], Centros=[];
+
 // Crea los recuadros para ingresar los pedidos
+var contador_pedidos = 1;
 var InputFields = function () {
     var div = document.createElement("div");
     document.getElementById('inputfield').appendChild(div);
@@ -195,17 +196,11 @@ var InputFields = function () {
     div.appendChild(textd);
     div.appendChild(pedidos_q);
 };
-function dynamicInputs() {
-    for (let index = 0; index < Puntos.length; index++) {
-        InputFields();
-    }
-}
-dynamicInputs();
 
 function creaPedidos() {
     var pedido_listo = [];
     for (i = 1; i <= Puntos.length; i++) {
-        var pedido_ingreso = document.getElementById("Npedido" + i).value;
+        var pedido_ingreso = document.getElementById("Npedidos" + i).value;
         if (pedido_ingreso > 1000 || pedido_ingreso < 0) {
             alert("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000 o menor que cero.");
             console.error("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000 o menor que cero.");

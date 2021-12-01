@@ -5,20 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Trabajo Integral</title>
         <!-- Favicon -->
-        <link rel="icon" type="image/png" href="../../../Desktop/trabajo-integral-glf-ebb94db7f72a5cb2908f962c7f4213d16cf9579e/icons/favicon.svg">
+        <link rel="icon" type="image/png" href="icons/favicon.svg">
         <!-- Fonts: 'Roboto' 'Work Sans' 'JetBrains Mono'-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Roboto:wght@300;400;500;700&family=Work+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet"> 
         <!-- Imports -->
-        <link rel="stylesheet" href="../../../Desktop/trabajo-integral-glf-ebb94db7f72a5cb2908f962c7f4213d16cf9579e/css/master.css">
-        <script defer src="../../../Desktop/trabajo-integral-glf-ebb94db7f72a5cb2908f962c7f4213d16cf9579e/js/camiones.js"></script>
+        <link rel="stylesheet" href="css/master.css">
+        <script defer src="js/camiones.js"></script>
     </head>
     <body>
         <div class="header-section">
             <div class="header-wrap">
-                <!-- NOTE: Github link here -->
                 <div class="header-title">Trabajo Integral - Generador de rutas</div>
-                <div class="header-descripcion">Esta aplicación web busca minimizar la distancia que han de recorrer camiones de entrega de cierta empresa repartidora. <br> Como el pedido es de caracter diario, se le solicita ingresar la cantidad de productos por punto de venta.</div>
+		        <div class="header-descripcion">Esta aplicaci&oacuten web busca minimizar la distancia que<br>han de recorrer los camiones de entrega diariamente de cierta empresa repartidora.</div>
                 <section>
                     <div class="wave wave1"></div>
                     <div class="wave wave2"></div>
@@ -27,15 +26,26 @@
                 </section>
             </div>
         </div>
+        <!-- ESPACIO PARA SUBIR EL ARCHIVO -->
+        <div class="subir-archivo">
+            <div class="descripcion-title">Seleccione el archivo de texto plano</div>
+            <input type="file" id="archivoTexto">
+	    <p id="mensajes"></p><br>
+            <textarea id="contenido" cols="30" rows="10"></textarea>
+        </div>
+        <!-- INGRESAR LOS PEDIDOS -->
         <div class="dynamic-input-wrap">
             <div class="input-descripcion">
                 <div class="descripcion-title">Ingreso de Pedidos</div>
-                <p class="descripcion">Como ya se pidió anteriormente debe ingresar los pedidos de cada uno de los Puntos de Venta.</p>
-                <p class="descripcion">Los pedidos no pueden superar 1000 unidades por Punto de Venta</p>
-                <p class="descripcion">Una vez terminado de rellenar los campos oprima enter y los datos se guardaran/acutalizaran.</p>
+                <p class="descripcion">Para hacer uso correcto de la p&aacutegina, debe ingresar los pedidos de cada uno de los Puntos de Venta en los recuadros disponibles a la derecha.</p>
+                <p class="descripcion">La cantidad de campos a rellenar depende directamente del archivo de coordenadas que use. Concretamente de la cantidad de puntos que existan en el archivo.</p>
+                <p class="descripcion">El n&uacutemero ingresado de pedido debe ser un n&uacutemero entero mayor que 0 y menor que 1000 puesto que no puede superar las 1000 unidades por Punto de Venta.</p>
+		        <p class="descripcion">Una vez terminado de rellenar los campos oprima el bot&oacuten de <i>"finalizar"</i> y los datos se actualizar&aacuten autom&aacuteticamente.</p>
             </div>
             <div class="relleno-datos">
-                <div id="inputfield"></div>
+                <div class="inputs-wrap">
+                    <div id="inputfield"></div>
+                </div>
                 <section>
                     <div class="waveI wave1"></div>
                     <div class="waveI wave2"></div>
@@ -45,10 +55,16 @@
                 <button type="button" class="boton-datos" onclick="printResultado()">Finalizar</button>
             </div>
         </div>
+        <!-- MUESTRA EL RESULTADO EN TEXTO -->
         <div class="resultado-op">
             <div class="descripcion-title">Resultado de la operaci&oacuten</div>
             <div id="resultadoHTML"></div>
         </div>
-        <div class="footer"></div>
+        <div class="footer">
+            <a class="link-github" href="https://github.com/yowls/trabajo-integral-glf">
+                <img class="link-github-icon" src="icons/github.svg" alt="Github logo icon">
+                <span class="link-github-text">GitHub</span>
+            </a>
+        </div>
     </body>
 </html>

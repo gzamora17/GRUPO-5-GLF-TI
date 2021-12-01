@@ -42,7 +42,7 @@ p {
     font-weight: lighter;
     color: var(--white-fg);
 }
-/* WAVE ANIMATION */
+/* WAVE ANIMATION ON HEADER*/
 .wave {
     position: absolute;
     bottom: 0;
@@ -97,17 +97,25 @@ p {
     }
 }
 
+.subir-archivo {
+    margin-top: 50px;
+    text-align: center;
+}
+
 /* INPUT SECTION  */
+.inputs-wrap {
+    height: 75%;
+    overflow: auto;
+}
 .dynamic-input-wrap {
     width: 100%;
     height: 26vw;
-    padding: 5% 0px;
+    padding: 10% 0px;
     display: flex;
     justify-content: space-around;
 }
 
 .input-descripcion {
-    margin-top: 35px;
     width: 30%;
 }
 .descripcion-title{
@@ -125,33 +133,73 @@ p {
 .relleno-datos {
     background-color: var(--accent);
     border-radius: 4px;
-    padding: 40px 0px;
+    padding: 20px 0px 40px 0px;
     width: 35%;
     height: 90%;
     position: relative;
 }
-.input-top-wave {
+/* WAVE ANIMATION ON INPUTS */
+.waveI {
     position: absolute;
-    background-image: url(../img/wave2.png);
-    background-size: 100% 20px;
-    width: 100%;
-    height: 20px;
-    top: 0;
-    left: 0;
-}
-.input-bottom-wave {
-    position: absolute;
-    background-image: url(../img/wave.png);
-    background-size: 100% 20px;
-    width: 100%;
-    height: 20px;
     bottom: 0;
     left: 0;
+    width: 100%;
+    height: 80px;
+    background-image: url(../img/wave.png);
+    background-size: 100% 100px;
+}
+.waveI.wave1 {
+    animation: animate 30s linear infinite;
+    z-index: 10;
+    opacity: 1;
+    animation-delay: 0s;
+    bottom: 0;
+}
+.waveI.wave2 {
+    animation: animate2 20s linear infinite;
+    z-index: 9;
+    opacity: 0.5;
+    animation-delay: -5s;
+    bottom: 4px;
+}
+.waveI.wave3 {
+    animation: animate 25s linear infinite;
+    z-index: 8;
+    opacity: 0.2;
+    animation-delay: -2s;
+    bottom: 6px;
+}
+.waveI.wave4 {
+    animation: animate2 20s linear infinite;
+    z-index: 7;
+    opacity: 0.7;
+    animation-delay: -5s;
+    bottom: 10px;
+}
+.boton-datos {
+    position: absolute;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    width: 120px;
+    color: var(--accent);
+    background-color: white;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    right: 30px;
+    bottom: -30px;
+    z-index: 15;
+}
+.boton-datos:hover {
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
 }
 
 /* RESULTADO  */
 .resultado-op {
-    margin-top: 50px;
+    margin-top: 6vw;
     width: 100%;
 }
 #resultadoHTML {
@@ -159,5 +207,27 @@ p {
 }
 .footer {
     width: 100%;
-    height: 100px;
+    height: 15vw;
+    position: relative;
+}
+.link-github {
+    position: absolute;
+    top: 60%;
+    left: 8%;
+    display: flex;
+    height: 50px;
+    width: 110px;
+    text-align: center;
+    align-items: center;
+}
+.link-github-text {
+    color: var(--accent);
+    margin-left: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+.link-github-icon {
+    height: 30px;
+    width: 30px;
 }
