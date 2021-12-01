@@ -8,10 +8,10 @@ function abrirArchivo(evento) {
             let contenido = e.target.result;
             const lines = contenido.split(/\r\n|\n/);
             document.getElementById('contenido').value = lines.join('\n');
-            [Puntos, Centros]=separa_Datos(contenido);
+            separa_Datos(contenido);
             // Procede a crear las casillas para rellenar los datos
             contador_pedidos = 1;
-            document.getElementById('inputfield').innerHTML='';
+            document.getElementById('inputfield').innerHTML = '';
             for (let index = 0; index < Puntos.length; index++) {
                 InputFields();
             }
@@ -23,7 +23,7 @@ function abrirArchivo(evento) {
     }
 }
 window.addEventListener('load', () => {
-        document.getElementById('archivoTexto').addEventListener('change', abrirArchivo);
+    document.getElementById('archivoTexto').addEventListener('change', abrirArchivo);
 });
 
 function separa_Datos(contenido_y) {
@@ -61,12 +61,13 @@ function separa_Datos(contenido_y) {
         }
     }
     centros_pasantia.push(centro_operado);
-    var puntos_el_final = [], centro_el_final = [], ñm = 0;
+    let puntos_el_final = [];
+    let centro_el_final = [];
+    var ñm = 0;
     do {
         var coorde = puntos_pasantia[ñm].slice(4, puntos_pasantia[ñm].length);
         var mete_punto = [];
         for (var plñ = 0; plñ < coorde.length; plñ++) {
-            var teo = 0;
             if (coorde[plñ] == ",") {
                 var pto = coorde.slice(0, plñ);
                 if (pto[0] == "-") {
@@ -113,12 +114,13 @@ function separa_Datos(contenido_y) {
         ñm++;
     } while (ñm < puntos_pasantia.length);
 
-    var ñm_8 =0;
+    Puntos = puntos_el_final;
+
+    var ñm_8 = 0;
     do {
         var coorde_8 = centros_pasantia[ñm_8].slice(4, centros_pasantia[ñm_8].length);
         var mete_punto_8 = [];
         for (var plñ_8 = 0; plñ_8 < coorde_8.length; plñ_8++) {
-            var teo_8 = 0;
             if (coorde_8[plñ_8] == ",") {
                 var pto_8 = coorde_8.slice(0, plñ_8);
                 if (pto_8[0] == "-") {
@@ -161,15 +163,15 @@ function separa_Datos(contenido_y) {
             }
         }
         centro_el_final.push(mete_punto_8);
-        mete_punto_8 = [];
         ñm_8++;
     } while (ñm_8 < centros_pasantia.length);
 
-    return [puntos_el_final, centro_el_final];
+    Centros = centro_el_final;
+    NombreCentros = op2();
+    NombrePuntos = op();
 }
 
-// var [Puntos, Centros]=separa_Datos(contenido);
-var Puntos= [], Centros=[];
+var Puntos = [], Centros = [];
 
 // Crea los recuadros para ingresar los pedidos
 var contador_pedidos = 1;
@@ -183,7 +185,7 @@ var InputFields = function () {
     // Set texto descripcion
     var textd = document.createElement("p");
     textd.setAttribute("style", "color:white;");
-    textd.textContent = "Punto de venta N" + contador_pedidos;
+    textd.textContent = "Punto de venta P" + contador_pedidos;
     contador_pedidos++;
 
     // Set inputs: pedidos_q
@@ -200,14 +202,22 @@ var InputFields = function () {
 
 function creaPedidos() {
     var pedido_listo = [];
-    for (i = 1; i <= Puntos.length; i++) {
-        var pedido_ingreso = document.getElementById("Npedidos" + i).value;
-        if (pedido_ingreso > 1000 || pedido_ingreso < 0) {
-            alert("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000 o menor que cero.");
-            console.error("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000 o menor que cero.");
-            return 0;
+    for (let i_90 = 1; i_90 <= Puntos.length; i_90++) {
+        var pedido_ingreso = document.getElementById("Npedidos" + i_90).value;
+        pedido_ingreso = parseInt(pedido_ingreso);
+        if (isNaN(pedido_ingreso) == true) {
+            alert("No ingreso todos los valores correctamente, vuelva a ingresar el archivo.");
+            location.reload();
+            return false;
         } else {
-            pedido_listo.push(pedido_ingreso);
+            if (pedido_ingreso > 1000 || pedido_ingreso < 0) {
+                alert("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000 o menor que cero, vuelva a ingresar el archivo.");
+                console.error("El valor ingresado en el pedido del Punto de Venta " + i + " es mayor a 1000 o menor que cero, vuelva a ingresar el archivo.");
+                location.reload();
+                return false;
+            } else {
+                pedido_listo.push(pedido_ingreso);
+            }
         }
     }
     return pedido_listo;
@@ -215,7 +225,6 @@ function creaPedidos() {
 
 var Estacionamiento = [0, 0];
 
-var NombrePuntos = op();
 function op() {
     var algo = [];
     for (var i_7 = 1; i_7 < Puntos.length + 1; i_7++) {
@@ -224,7 +233,7 @@ function op() {
     }
     return algo;
 }
-var NombreCentros = op2();
+var NombrePuntos = [];
 function op2() {
     var algo = [];
     for (var i_5 = 1; i_5 < Centros.length + 1; i_5++) {
@@ -233,7 +242,7 @@ function op2() {
     }
     return algo;
 }
-
+var NombreCentros = [];
 
 function menorAmayor(Pedidos2, NombrePuntos2, Puntos2) {
     var i = 0, j = i + 1, puente1 = [], puente3 = [], puente2 = [], puente4 = [], puente5 = [], puente6 = [];
@@ -319,7 +328,7 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
     do {
         suma = suma + Pedidos1[ñ_8];
         guarda.push(NombrePuntos1[ñ_8]);
-        if (suma >= 1000) {
+        if (suma > 1000) {
             guarda.pop();
             Camiones.push(guarda);
             guarda = [];
@@ -495,10 +504,6 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
         }
     } while (cuenta < Rutas.length);
 
-    console.log(Rutas);
-    console.log(RecorridoTotal);
-    console.log(Tamano_Rutas);
-
     return [Rutas, RecorridoTotal, Tamano_Rutas];
 }
 
@@ -543,42 +548,42 @@ function printResultado() {
             printInPage.appendChild(informacionCamion);
         } else {
             if (Tamano_Resultado[index] > 1) {
-                var nombreCamion = document.createElement("p");
-                nombreCamion.setAttribute("style", "font-size: 14px; padding-top: 40px;")
-                nombreCamion.innerHTML = "Camion numero " + (index + 1);
+                var nombreCamion_2 = document.createElement("p");
+                nombreCamion_2.setAttribute("style", "font-size: 14px; padding-top: 40px;")
+                nombreCamion_2.innerHTML = "Camion numero " + (index + 1);
 
                 // Imprime su informacion contenida en "informacionCamion"
-                var informacionCamion = document.createElement("p");
-                informacionCamion.setAttribute("style", "margin-left: 45px;")
+                var informacionCamion_2 = document.createElement("p");
+                informacionCamion_2.setAttribute("style", "margin-left: 45px;")
 
-                var direccionCamion1 = document.createElement("p");
-                direccionCamion1.innerHTML = "Sale del estacionamiento hacia " + Rutas_Resultado[index][0][2] + " (Distancia: " + Rutas_Resultado[index][0][1] + " kms.).";
-                var direccionCamion2 = document.createElement("p");
-                var ruta_puntos = crea_palabra();
-                function crea_palabra() {
+                var direccionCamion1_2 = document.createElement("p");
+                direccionCamion1_2.innerHTML = "Sale del estacionamiento hacia " + Rutas_Resultado[index][0][2] + " (Distancia: " + Rutas_Resultado[index][0][1] + " kms.).";
+                var direccionCamion2_2 = document.createElement("p");
+                var ruta_puntos_2 = crea_palabra_2();
+                function crea_palabra_2() {
                     var palabra = "Luego se dirige a ";
                     var paseando = 4;
                     do {
-                        palabra = palabra + Rutas_Resultado[index][0][paseando] + " (Distancia: " + Rutas_Resultado[index][0][paseando - 1] + " kms.), luego hacia ";
+                        palabra = palabra + Rutas_Resultado[index][0][paseando] + " (Distancia: " + Rutas_Resultado[index][0][paseando - 1] + " kms.),<br>Luego hacia ";
                         paseando = paseando + 2;
                     } while (paseando < Rutas_Resultado[index][0].length - 2);
                     var palabra_2 = palabra.slice(0, palabra.length - 14);
                     palabra_2 = palabra_2 + "."
                     return palabra_2;
                 }
-                direccionCamion2.innerHTML = ruta_puntos;
-                var distancia_estacionamiento = Rutas_Resultado[index][0].length - 2;
-                var direccionCamion3 = document.createElement("p");
-                direccionCamion3.innerHTML = "Y por ultimo se devuelve al estacionamiento (Distancia: " + Rutas_Resultado[index][0][distancia_estacionamiento] + " kms.).";
-                var direccionCamion4 = document.createElement("p");
-                direccionCamion4.innerHTML = "La cantidad recorrida total es " + Recorrido_Resultado[index] + " kms.";
+                direccionCamion2_2.innerHTML = ruta_puntos_2;
+                var distancia_estacionamiento_2 = Rutas_Resultado[index][0].length - 2;
+                var direccionCamion3_2 = document.createElement("p");
+                direccionCamion3_2.innerHTML = "Y por ultimo se devuelve al estacionamiento (Distancia: " + Rutas_Resultado[index][0][distancia_estacionamiento_2] + " kms.).";
+                var direccionCamion4_2 = document.createElement("p");
+                direccionCamion4_2.innerHTML = "La cantidad recorrida total es " + Recorrido_Resultado[index] + " kms.";
                 // Append Childs
-                informacionCamion.appendChild(direccionCamion1);
-                informacionCamion.appendChild(direccionCamion2);
-                informacionCamion.appendChild(direccionCamion3);
-                informacionCamion.appendChild(direccionCamion4);
-                printInPage.appendChild(nombreCamion);
-                printInPage.appendChild(informacionCamion);
+                informacionCamion.appendChild(direccionCamion1_2);
+                informacionCamion.appendChild(direccionCamion2_2);
+                informacionCamion.appendChild(direccionCamion3_2);
+                informacionCamion.appendChild(direccionCamion4_2);
+                printInPage.appendChild(nombreCamion_2);
+                printInPage.appendChild(informacionCamion_2);
             }
         }
     }
