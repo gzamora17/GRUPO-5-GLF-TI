@@ -8,9 +8,10 @@ function abrirArchivo(evento) {
             let contenido = e.target.result;
             const lines = contenido.split(/\r\n|\n/);
             document.getElementById('contenido').value = lines.join('\n');
-            // var contenido_x = contenido;
-            // separa_Datos(contenido_x);
             [Puntos, Centros]=separa_Datos(contenido);
+            // Procede a crear las casillas para rellenar los datos
+            contador_pedidos = 1;
+            document.getElementById('inputfield').innerHTML='';
             for (let index = 0; index < Puntos.length; index++) {
                 InputFields();
             }
@@ -501,7 +502,7 @@ function main(Pedidos_1, NombrePuntos_1, Puntos_1) {
     return [Rutas, RecorridoTotal, Tamano_Rutas];
 }
 
-var pasa_camiones = 0;
+// var pasa_camiones = 0;
 function printResultado() {
     var Pedidos = creaPedidos();
     var [Rutas_Resultado, Recorrido_Resultado, Tamano_Resultado] = main(Pedidos, NombrePuntos, Puntos);
