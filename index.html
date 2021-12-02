@@ -51,6 +51,7 @@
                 <p class="descripcion">La cantidad de campos a rellenar depende directamente del archivo de coordenadas que use. Concretamente de la cantidad de puntos que existan en el archivo.</p>
                 <p class="descripcion">El n&uacutemero ingresado de pedido debe ser un n&uacutemero entero mayor que 0 y menor que 1000 puesto que no puede superar las 1000 unidades por Punto de Venta.</p>
 		        <p class="descripcion">Una vez terminado de rellenar los campos oprima el bot&oacuten de "Finalizar" y los datos se actualizar&aacuten autom&aacuteticamente.</p>
+		        <p class="descripcion">La dimensión de los datos relacionados a las distancias obtenidas sera de Kilometros (kms).</p>
             </div>
             <div class="relleno-datos">
                 <div class="inputs-wrap">
@@ -62,7 +63,9 @@
                     <div class="waveI wave3"></div>
                     <div class="waveI wave4"></div>
                 </section>
-                <button type="button" class="boton-datos" onclick="printResultado()">Finalizar</button>
+                <div id="boton-finalizar">
+                    <button type="button" class="boton-datos" onclick="printResultado()">Finalizar</button>
+                </div>
             </div>
         </div>
         <!-- MUESTRA EL RESULTADO EN TEXTO -->
@@ -72,7 +75,6 @@
         </div>
         <div class="footer">
             <a class="link-github" href="https://github.com/yowls/trabajo-integral-glf">
-                <img class="link-github-icon" src="icons/github.svg" alt="Github logo icon">
                 <span class="link-text">GitHub</span>
             </a>
             <div id="reload-page"></div>

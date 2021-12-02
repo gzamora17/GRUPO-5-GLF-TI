@@ -592,6 +592,7 @@ function printResultado() {
             }
         }
     }
+    document.getElementById('boton-finalizar').innerHTML='';
     // Crea el boton para recargar la pagina
     var reloadHTML= document.getElementById('reload-page');
     reloadHTML.innerHTML='';
@@ -600,14 +601,10 @@ function printResultado() {
     reloadButton.setAttribute("class","boton-reload");
     reloadButton.setAttribute("onclick","location.reload()");
 
-    var reloadIcon= document.createElement('img');
-    reloadIcon.setAttribute("src","icons/refresh.svg")
-
     var reloadText= document.createElement('span');
     reloadText.setAttribute("class","link-text")
     reloadText.textContent="¿Desea ingresar otro día?";
 
-    reloadButton.appendChild(reloadIcon);
     reloadButton.appendChild(reloadText);
     reloadHTML.appendChild(reloadButton);
 }

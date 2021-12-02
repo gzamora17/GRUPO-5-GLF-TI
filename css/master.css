@@ -140,9 +140,10 @@ p {
 .relleno-datos {
     background-color: var(--accent);
     border-radius: 4px;
+    margin-top: 40px;
     padding: 20px 0px 40px 0px;
     width: 35%;
-    height: 90%;
+    height: 100%;
     position: relative;
 }
 /* WAVE ANIMATION ON INPUTS */
@@ -247,8 +248,9 @@ p {
     align-items: center;
     top: 60%;
     left: 83%;
-    width: 120px;
+    width: 150px;
     height: 50px;
+    cursor: pointer;
 }
 .boton-reload img {
     width: 30px;
